@@ -8,7 +8,6 @@ Prepares metadata files (JSON) from manual annotations "segments/" using RTTM fo
 
 import os
 import logging
-import xml.etree.ElementTree as et
 import glob
 import json
 from ami_splits import get_AMI_split
@@ -17,6 +16,7 @@ from speechbrain.dataio.dataio import (
     load_pkl,
     save_pkl,
 )
+import defusedxml.ElementTree
 
 logger = logging.getLogger(__name__)
 SAMPLERATE = 16000
@@ -276,7 +276,7 @@ def prepare_segs_for_RTTM(
                 spkrs_list.append(spkr_ID)
 
                 # Parse xml tree
-                tree = et.parse(spkr_xml_file)
+                tree = defusedxml.ElementTree.parse(spkr_xml_file)
                 root = tree.getroot()
 
                 # Start, end and speaker_ID from xml file
