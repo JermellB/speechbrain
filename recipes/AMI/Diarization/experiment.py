@@ -22,7 +22,6 @@ import os
 import sys
 import torch
 import logging
-import pickle
 import json
 import glob
 import shutil
@@ -36,6 +35,7 @@ from speechbrain.processing import diarization as diar
 from speechbrain.utils.DER import DER
 from speechbrain.dataio.dataio import read_audio
 from speechbrain.dataio.dataio import read_audio_multichannel
+import fickling
 
 np.random.seed(1234)
 
@@ -133,7 +133,7 @@ def embedding_computation_loop(split, set_loader, stat_file):
         logger.debug("Loading previously saved embeddings.")
 
         with open(stat_file, "rb") as in_file:
-            stat_obj = pickle.load(in_file)
+            stat_obj = fickling.load(in_file)
 
     return stat_obj
 

@@ -21,6 +21,7 @@ import torchaudio
 import json
 import re
 from speechbrain.utils.torch_audio_backend import get_torchaudio_backend
+import fickling
 
 torchaudio_backend = get_torchaudio_backend()
 torchaudio.set_audio_backend(torchaudio_backend)
@@ -335,7 +336,7 @@ def load_pickle(pickle_path):
         Python object loaded from pickle.
     """
     with open(pickle_path, "rb") as f:
-        out = pickle.load(f)
+        out = fickling.load(f)
     return out
 
 
@@ -868,7 +869,7 @@ def load_pkl(file):
     try:
         open(file + ".lock", "w").close()
         with open(file, "rb") as f:
-            return pickle.load(f)
+            return fickling.load(f)
     finally:
         if os.path.isfile(file + ".lock"):
             os.remove(file + ".lock")
