@@ -10,6 +10,7 @@ Authors
 
 import logging
 import subprocess
+from security import safe_command
 
 logger = logging.getLogger(__name__)
 
@@ -44,8 +45,7 @@ def run_shell(cmd):
     """
 
     # Executing the command
-    p = subprocess.Popen(
-        cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
+    p = safe_command.run(subprocess.Popen, cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
     )
 
     # Capturing standard output and error
