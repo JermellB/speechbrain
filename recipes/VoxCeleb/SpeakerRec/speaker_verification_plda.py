@@ -18,7 +18,6 @@ import torchaudio
 import logging
 import speechbrain as sb
 import numpy
-import pickle
 from tqdm.contrib import tqdm
 from hyperpyyaml import load_hyperpyyaml
 from speechbrain.utils.metric_stats import EER, minDCF
@@ -27,6 +26,7 @@ from speechbrain.processing.PLDA_LDA import Ndx
 from speechbrain.processing.PLDA_LDA import fast_PLDA_scoring
 from speechbrain.utils.data_utils import download_file
 from speechbrain.utils.distributed import run_on_main
+import fickling
 
 
 # Compute embeddings from the waveforms
@@ -101,7 +101,7 @@ def emb_computation_loop(split, set_loader, stat_file):
         logger.info(f"Loading previously saved stat_object for {split}")
 
         with open(stat_file, "rb") as input:
-            stat_obj = pickle.load(input)
+            stat_obj = fickling.load(input)
 
     return stat_obj
 
@@ -318,7 +318,7 @@ if __name__ == "__main__":
             "Loading previously saved stat_object for train embeddings.."
         )
         with open(xv_file, "rb") as input:
-            embeddings_stat = pickle.load(input)
+            embeddings_stat = fickling.load(input)
 
     # Training Gaussian PLDA model
     logger.info("Training PLDA model")
@@ -347,7 +347,7 @@ if __name__ == "__main__":
         logger.info("Skipping Ndx preparation")
         logger.info("Loading Ndx from disk")
         with open(ndx_file, "rb") as input:
-            ndx_obj = pickle.load(input)
+            ndx_obj = fickling.load(input)
 
     # PLDA scoring
     logger.info("PLDA scoring...")
