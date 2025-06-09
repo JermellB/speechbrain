@@ -992,7 +992,7 @@ def merge_csvs(data_folder, csv_lst, merged_csv):
     if os.path.isfile(write_path):
         logger.info("Skipping merging. Completed in previous run.")
     with open(os.path.join(data_folder, csv_lst[0])) as f:
-        header = f.readline()
+        header = f.readline(5_000_000)
     lines = []
     for csv_file in csv_lst:
         with open(os.path.join(data_folder, csv_file)) as f:

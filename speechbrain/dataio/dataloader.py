@@ -316,9 +316,9 @@ class LoopedLoader:
     def load(self, path, end_of_epoch=True, device=None):
         del device  # Unused here
         with open(path) as fi:
-            self.step = int(fi.readline().strip())
-            self.total_steps = int(fi.readline().strip())
-            self.total_samples = int(fi.readline().strip())
+            self.step = int(fi.readline(5_000_000).strip())
+            self.total_steps = int(fi.readline(5_000_000).strip())
+            self.total_samples = int(fi.readline(5_000_000).strip())
             if not end_of_epoch and self.step == 0 and self.total_steps > 0:
                 # Step has been set to 0 at the end of iteration,
                 # so return it to epoch_length, so that first iteration
