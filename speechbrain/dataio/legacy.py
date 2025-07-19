@@ -7,6 +7,7 @@ import logging
 import torch
 import torchaudio
 import re
+import fickling
 
 logger = logging.getLogger(__name__)
 
@@ -268,7 +269,7 @@ def read_pkl(file, data_options={}, lab2ind=None):
     # Trying to read data
     try:
         with open(file, "rb") as f:
-            pkl_element = pickle.load(f)
+            pkl_element = fickling.load(f)
     except pickle.UnpicklingError:
         err_msg = "cannot read the pkl file %s" % (file)
         raise ValueError(err_msg)
